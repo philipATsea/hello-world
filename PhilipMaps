@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+  <title>Google Maps Philip Ireland</title> 
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyAH6HECRDS8fyYcKEQFErlsNIbWBUVrK6g" 
+          type="text/javascript"></script>
+</head>
+<body>
+  <div id="map" style="width: 100%; height: 1020px;"></div>
+  <script type="text/javascript">
+    var locations = [
+      ['Blackrock Baths', 53.303295, -6.178769],
+      ['Howth Lobster Location', 53.385915, -6.048877],
+      ['Dillons Park Urchins', 53.271759, -6.091191],
+      ['Dun Laoghaire Harbour Marina', 53.296383, -6.135121],
+    ];
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 
+            11,
+      center: new google.maps.LatLng(53.341928, -6.048539),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  </script>
+</body>
+</html>
